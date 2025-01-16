@@ -67,7 +67,32 @@ Tailwind CSS is a great choice for styling the application:
 
 ---
 
-## 4. Set Up State Management
+## 4. Add ShaqCDN Component Library
+ShaqCDN provides pre-built components to speed up frontend development:
+
+1. Install the ShaqCDN package:
+
+   ```bash
+   npm install shaqcdn
+   ```
+
+2. Import the library and use its components in your project. For example, to use a button:
+
+   ```javascript
+   import { Button } from 'shaqcdn';
+
+   export default function Example() {
+     return (
+       <Button label="Click Me" onClick={() => alert('Button clicked!')} />
+     );
+   }
+   ```
+
+3. Customize the components by overriding default styles in your `tailwind.config.js` or using ShaqCDN's built-in theming options. Refer to the [ShaqCDN Documentation](https://shaqcdn.com/docs) for more details.
+
+---
+
+## 5. Set Up State Management
 For global state management:
 
 - Start with React Context (built-in).
@@ -75,7 +100,7 @@ For global state management:
 
 ---
 
-## 5. Scryfall API Integration
+## 6. Scryfall API Integration
 Use Next.js API routes to create backend wrappers for the Scryfall API:
 
 1. Create an API route (e.g., `/pages/api/cards.js`):
@@ -101,7 +126,7 @@ Use Next.js API routes to create backend wrappers for the Scryfall API:
 
 ---
 
-## 6. Set Up Incremental Static Regeneration (ISR)
+## 7. Set Up Incremental Static Regeneration (ISR)
 For static content like popular Magic card sets:
 
 Use ISR to revalidate pages automatically. Example in `getStaticProps`:
@@ -120,7 +145,7 @@ export async function getStaticProps() {
 
 ---
 
-## 7. Deploy the Application
+## 8. Deploy the Application
 Deploy the app on Vercel, which is optimized for Next.js:
 
 1. Push your code to GitHub or another version control system.
