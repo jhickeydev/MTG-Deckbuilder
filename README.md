@@ -100,7 +100,64 @@ For global state management:
 
 ---
 
-## 6. Scryfall API Integration
+## 6. Database Integration
+To handle your own database, follow these steps:
+
+1. **Choose a Database**:
+   - For relational databases, use PostgreSQL or MySQL.
+   - For non-relational databases, use MongoDB.
+
+2. **Set Up a Database Connector**:
+   - Install the appropriate database client:
+     ```bash
+     npm install prisma
+     ```
+
+3. **Generate Models**:
+   - Initialize Prisma:
+     ```bash
+     npx prisma init
+     ```
+   - Define your data models in `prisma/schema.prisma`:
+     ```prisma
+     model Card {
+       id        Int     @id @default(autoincrement())
+       name      String
+       type      String
+       rarity    String
+       manaCost  String
+     }
+     ```
+   - Run migrations to apply your schema to the database:
+     ```bash
+     npx prisma migrate dev --name init
+     ```
+
+4. **Use Database Models in API Routes**:
+   - Create API routes in Next.js and use Prisma to interact with the database:
+     ```javascript
+     import { PrismaClient } from '@prisma/client';
+
+     const prisma = new PrismaClient();
+
+     export default async function handler(req, res) {
+       if (req.method === 'GET') {
+         const cards = await prisma.card.findMany();
+         res.status(200).json(cards);
+       }
+     }
+     ```
+
+5. **Secure Your Environment Variables**:
+   - Add database connection details in `.env`:
+     ```env
+     DATABASE_URL="postgresql://user:password@localhost:5432/magicdb"
+     ```
+   - Ensure sensitive files like `.env` are excluded from version control by adding them to `.gitignore`.
+
+---
+
+## 7. Scryfall API Integration
 Use Next.js API routes to create backend wrappers for the Scryfall API:
 
 1. Create an API route (e.g., `/pages/api/cards.js`):
@@ -126,7 +183,7 @@ Use Next.js API routes to create backend wrappers for the Scryfall API:
 
 ---
 
-## 7. Set Up Incremental Static Regeneration (ISR)
+## 8. Set Up Incremental Static Regeneration (ISR)
 For static content like popular Magic card sets:
 
 Use ISR to revalidate pages automatically. Example in `getStaticProps`:
@@ -145,7 +202,7 @@ export async function getStaticProps() {
 
 ---
 
-## 8. Deploy the Application
+## 9. Deploy the Application
 Deploy the app on Vercel, which is optimized for Next.js:
 
 1. Push your code to GitHub or another version control system.
